@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><!--Created with JFLAP 6.4.--><structure>
+	<type>fa</type>
+	<automaton>
+		<!--The list of states.-->
+		<state id="0" name="q0">
+			<x>379.0</x>
+			<y>196.0</y>
+			<initial/>
+			<final/>
+		</state>
+		<state id="1" name="q1">
+			<x>638.0</x>
+			<y>218.0</y>
+		</state>
+		<state id="2" name="q2">
+			<x>608.0</x>
+			<y>324.0</y>
+		</state>
+		<state id="3" name="q3">
+			<x>467.0</x>
+			<y>305.0</y>
+			<label>read mem</label>
+		</state>
+		<state id="4" name="q4">
+			<x>642.0</x>
+			<y>158.0</y>
+		</state>
+		<state id="5" name="q5">
+			<x>699.0</x>
+			<y>341.0</y>
+		</state>
+		<state id="6" name="q6">
+			<x>422.0</x>
+			<y>392.0</y>
+			<label>read mem | write mem</label>
+		</state>
+		<!--The list of transitions.-->
+		<transition>
+			<from>2</from>
+			<to>3</to>
+			<read>c1w0</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>1</to>
+			<read>c1w0</read>
+		</transition>
+		<transition>
+			<from>1</from>
+			<to>2</to>
+			<controlx>665</controlx>
+			<controly>279</controly>
+			<read>c0w0</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>0</to>
+			<read>c0w1</read>
+		</transition>
+		<transition>
+			<from>3</from>
+			<to>0</to>
+			<read>c0w0</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>0</to>
+			<read>c0w0</read>
+		</transition>
+		<transition>
+			<from>6</from>
+			<to>0</to>
+			<read>c0w1</read>
+		</transition>
+		<transition>
+			<from>6</from>
+			<to>0</to>
+			<read>c0w0</read>
+		</transition>
+		<transition>
+			<from>5</from>
+			<to>6</to>
+			<read>c0w1</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>4</to>
+			<read>c1w1</read>
+		</transition>
+		<transition>
+			<from>5</from>
+			<to>6</to>
+			<read>c0w0</read>
+		</transition>
+		<transition>
+			<from>4</from>
+			<to>5</to>
+			<read>c0w1</read>
+		</transition>
+		<transition>
+			<from>4</from>
+			<to>5</to>
+			<read>c0w0</read>
+		</transition>
+	</automaton>
+</structure>
