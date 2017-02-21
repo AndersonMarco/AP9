@@ -34,3 +34,7 @@
 
 *.cdb
 *.hdb
+
+*.bak
+
+simulation

@@ -1,14 +1,14 @@
-Analysis & Synthesis Status : Successful - Fri Feb 10 14:42:25 2017
-Quartus II 32-bit Version : 11.1 Build 259 01/25/2012 SP 2 SJ Web Edition
+Analysis & Elaboration Status : Successful - Tue Feb 21 19:24:00 2017
+Quartus Prime Version : 16.1.0 Build 196 10/24/2016 SJ Lite Edition
 Revision Name : AP9
-Top-level Entity Name : kit
+Top-level Entity Name : RAM
 Family : Cyclone IV E
-Total logic elements : 3,327
-    Total combinational functions : 3,184
-    Dedicated logic registers : 655
-Total registers : 655
-Total pins : 41
-Total virtual pins : 0
-Total memory bits : 1,470,464
-Embedded Multiplier 9-bit elements : 2
-Total PLLs : 0
+Total logic elements : N/A until Partition Merge
+    Total combinational functions : N/A until Partition Merge
+    Dedicated logic registers : N/A until Partition Merge
+Total registers : N/A until Partition Merge
+Total pins : N/A until Partition Merge
+Total virtual pins : N/A until Partition Merge
+Total memory bits : N/A until Partition Merge
+Embedded Multiplier 9-bit elements : N/A until Partition Merge
+Total PLLs : N/A until Partition Merge

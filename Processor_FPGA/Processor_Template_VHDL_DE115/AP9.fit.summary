@@ -1,12 +1,12 @@
-Fitter Status : Successful - Fri Feb 10 14:43:07 2017
-Quartus II 32-bit Version : 11.1 Build 259 01/25/2012 SP 2 SJ Web Edition
+Fitter Status : Successful - Tue Feb 21 19:21:02 2017
+Quartus Prime Version : 16.1.0 Build 196 10/24/2016 SJ Lite Edition
 Revision Name : AP9
 Top-level Entity Name : kit
 Family : Cyclone IV E
 Device : EP4CE115F29C7
 Timing Models : Final
-Total logic elements : 3,298 / 114,480 ( 3 % )
-    Total combinational functions : 3,186 / 114,480 ( 3 % )
+Total logic elements : 3,175 / 114,480 ( 3 % )
+    Total combinational functions : 3,025 / 114,480 ( 3 % )
     Dedicated logic registers : 655 / 114,480 ( < 1 % )
 Total registers : 655
 Total pins : 41 / 529 ( 8 % )
