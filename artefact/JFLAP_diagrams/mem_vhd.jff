@@ -36,9 +36,34 @@
 		</state>
 		<!--The list of transitions.-->
 		<transition>
+			<from>6</from>
+			<to>0</to>
+			<read>c0w1</read>
+		</transition>
+		<transition>
+			<from>6</from>
+			<to>0</to>
+			<read>c0w0</read>
+		</transition>
+		<transition>
+			<from>5</from>
+			<to>6</to>
+			<read>c0w0</read>
+		</transition>
+		<transition>
+			<from>5</from>
+			<to>6</to>
+			<read>c1w1</read>
+		</transition>
+		<transition>
 			<from>2</from>
 			<to>3</to>
 			<read>c1w0</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>0</to>
+			<read>c0w1</read>
 		</transition>
 		<transition>
 			<from>0</from>
@@ -46,15 +71,23 @@
 			<read>c1w0</read>
 		</transition>
 		<transition>
-			<from>1</from>
-			<to>2</to>
-			<controlx>665</controlx>
-			<controly>279</controly>
+			<from>0</from>
+			<to>0</to>
 			<read>c0w0</read>
 		</transition>
 		<transition>
 			<from>0</from>
-			<to>0</to>
+			<to>4</to>
+			<read>c1w1</read>
+		</transition>
+		<transition>
+			<from>4</from>
+			<to>5</to>
+			<read>c0w0</read>
+		</transition>
+		<transition>
+			<from>4</from>
+			<to>5</to>
 			<read>c0w1</read>
 		</transition>
 		<transition>
@@ -63,43 +96,10 @@
 			<read>c0w0</read>
 		</transition>
 		<transition>
-			<from>0</from>
-			<to>0</to>
-			<read>c0w0</read>
-		</transition>
-		<transition>
-			<from>6</from>
-			<to>0</to>
-			<read>c0w1</read>
-		</transition>
-		<transition>
-			<from>6</from>
-			<to>0</to>
-			<read>c0w0</read>
-		</transition>
-		<transition>
-			<from>5</from>
-			<to>6</to>
-			<read>c0w1</read>
-		</transition>
-		<transition>
-			<from>0</from>
-			<to>4</to>
-			<read>c1w1</read>
-		</transition>
-		<transition>
-			<from>5</from>
-			<to>6</to>
-			<read>c0w0</read>
-		</transition>
-		<transition>
-			<from>4</from>
-			<to>5</to>
-			<read>c0w1</read>
-		</transition>
-		<transition>
-			<from>4</from>
-			<to>5</to>
+			<from>1</from>
+			<to>2</to>
+			<controlx>665</controlx>
+			<controly>279</controly>
 			<read>c0w0</read>
 		</transition>
 	</automaton>

@@ -38,7 +38,7 @@
 
 set_global_assignment -name FAMILY "Cyclone IV E"
 set_global_assignment -name DEVICE EP4CE115F29C7
-set_global_assignment -name TOP_LEVEL_ENTITY RAM
+set_global_assignment -name TOP_LEVEL_ENTITY clock_gen
 set_global_assignment -name ORIGINAL_QUARTUS_VERSION 10.1
 set_global_assignment -name PROJECT_CREATION_TIME_DATE "02:27:16  DECEMBER 18, 2011"
 set_global_assignment -name LAST_QUARTUS_VERSION "16.1.0 Lite Edition"
@@ -582,6 +582,9 @@ set_location_assignment PIN_G24 -to HSMC_CLKOUT_N1
 set_global_assignment -name MISC_FILE AP9.dpf
 set_global_assignment -name EDA_SIMULATION_TOOL "ModelSim-Altera (VHDL)"
 set_global_assignment -name EDA_OUTPUT_DATA_FORMAT VHDL -section_id eda_simulation
+set_global_assignment -name EDA_TEST_BENCH_ENABLE_STATUS TEST_BENCH_MODE -section_id eda_simulation
+set_global_assignment -name EDA_NATIVELINK_SIMULATION_TEST_BENCH ramWithClock_tb -section_id eda_simulation
+set_global_assignment -name VERILOG_FILE clock_gen.v
 set_global_assignment -name VERILOG_FILE ram_tb.v
 set_global_assignment -name QIP_FILE lpm_rom0.qip
 set_global_assignment -name VHDL_FILE TEXT_DRAWER.vhd
@@ -599,12 +602,8 @@ set_global_assignment -name VHDL_FILE video.vhd
 set_global_assignment -name VHDL_FILE vga.vhd
 set_global_assignment -name VHDL_FILE clock_manager.vhd
 set_global_assignment -name VHDL_FILE cpu.vhd
-set_global_assignment -name EDA_TEST_BENCH_ENABLE_STATUS TEST_BENCH_MODE -section_id eda_simulation
-set_global_assignment -name EDA_NATIVELINK_SIMULATION_TEST_BENCH ram_tb -section_id eda_simulation
-set_global_assignment -name EDA_TEST_BENCH_NAME ram_tb -section_id eda_simulation
-set_global_assignment -name EDA_DESIGN_INSTANCE_NAME NA -section_id ram_tb
-set_global_assignment -name EDA_TEST_BENCH_MODULE_NAME ram_tb -section_id ram_tb
-set_global_assignment -name EDA_TEST_BENCH_FILE ram_tb.v -section_id ram_tb
+set_global_assignment -name VERILOG_FILE ramWithClock.v
+set_global_assignment -name VERILOG_FILE ramWithClock_tb.v
 set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
 set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
 set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
@@ -1135,4 +1134,8 @@ set_instance_assignment -name IO_STANDARD LVDS -to HSMC_TX_D_N[16]
 set_instance_assignment -name IO_STANDARD LVDS -to HSMC_RX_D_N[16]
 set_instance_assignment -name IO_STANDARD LVDS -to HSMC_CLKOUT_N2
 set_instance_assignment -name IO_STANDARD LVDS -to HSMC_CLKOUT_N1
+set_global_assignment -name EDA_TEST_BENCH_NAME ramWithClock_tb -section_id eda_simulation
+set_global_assignment -name EDA_DESIGN_INSTANCE_NAME NA -section_id ramWithClock_tb
+set_global_assignment -name EDA_TEST_BENCH_MODULE_NAME ramWithClock_tb -section_id ramWithClock_tb
+set_global_assignment -name EDA_TEST_BENCH_FILE ramWithClock_tb.v -section_id ramWithClock_tb
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
