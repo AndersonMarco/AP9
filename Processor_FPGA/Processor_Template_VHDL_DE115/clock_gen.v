@@ -1,9 +1,9 @@
 module  clock_gen (clk_out);
    reg clk;   
-   output reg clk_out;   
+   output wire clk_out;   
    initial clk=0;
+	assign clk_out=clk;
    always begin
-	clk_out=clk;
 	#20000 clk=~clk;
 	
    end	

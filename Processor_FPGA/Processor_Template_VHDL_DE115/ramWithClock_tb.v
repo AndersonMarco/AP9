@@ -1,15 +1,33 @@
 module ramWithClock_tb;
-   wire clock_50Mhz;
-   //wire clock_50Mhz;
-   //wire clock_25Mhz;
-   //wire clock_1MHz;
-   //wire clock_1KHz;
-   //clock_manager clock_manager_dut();
-   clock_gen dut(clock_50Mhz);
-	initial
-begin
-   $display("clock = %x",clock_50Mhz);#10000
-	$stop;
-   end
+   //wire clocks =======================================================
+   wire clock__50Mhz;
+   wire wire_clock_50Mhz;
+   wire wire_clock_25Mhz;
+   wire wire_clock_1MHz;
+   wire wire_clock_1KHz;
+   //end================================================================
+
+   //wire to ram========================================================
+   wire [15:0] bus_RAM_ADDRESS;
+   wire [15:0] bus_RAM_DATA_OUT;
+   wire        wire_RW;
+   wire [15:0] bus_RAM_DATA_IN;   
+   //end================================================================
+   
+
+  
+   //cpu data out=======================================================
+   wire [15:0] data_debug;   
+   //end================================================================
+   kit_v kit_v_mux(clock__50Mhz, wire_clock_50Mhz, wire_clock_25Mhz, wire_clock_1MHz, wire_clock_1KHz,bus_RAM_ADDRESS,bus_RAM_DATA_OUT, wire_RW,bus_RAM_DATA_IN,data_debug);
+	
+   
+   
+   initial
+     begin
+        
+        $display("clock = %x, data_out = %x",wire_clock_1MHz,data_debug);#10000000
+	    $stop;
+     end
    
 endmodule
