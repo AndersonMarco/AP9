@@ -20,18 +20,21 @@ module  cpu_v(bus_RAM_ADDRESS, wire_clock, bus_RAM_DATA_OUT, wire_RW, bus_RAM_DA
          stage=stage+8'h01;
          casex(stage) 
            8'h01: begin
-              data_debug=instruction;              
+              data_debug=instruction;
+              processing_instruction=1'b1;
+              stage=8'h00;              
            end        
          endcase
       end else begin       
         stage=stage+8'h01;
         casex(stage)
           8'h01: begin
-             bus_RAM_ADDRESS=4'h0000;           
+             bus_RAM_ADDRESS=16'h0000;           
           end
           8'h02: begin
              instruction=bus_RAM_DATA_OUT;
              processing_instruction=1;
+             data_debug=bus_RAM_DATA_OUT;             
              stage=0;           
           end        
         endcase

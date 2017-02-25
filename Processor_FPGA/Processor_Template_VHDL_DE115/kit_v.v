@@ -37,8 +37,8 @@ module kit_v(clock__50Mhz, wire_clock_50Mhz, wire_clock_25Mhz, wire_clock_1Mhz, 
    //end================================================================
 
 
-   //ram ram_dut(bus_RAM_ADDRESS_priv, wire_clock_50Mhz_priv, bus_RAM_DATA_OUT_priv,wire_RW_priv,bus_RAM_DATA_IN_priv);
-   //cpu_v cpu_v_dut(bus_RAM_ADDRESS_priv, wire_clock_1MHz_priv, bus_RAM_DATA_OUT_priv, wire_RW_priv, bus_RAM_DATA_IN_priv,data_debug_priv);
+   ram ram_dut(bus_RAM_ADDRESS_priv, wire_clock_50Mhz_priv,bus_RAM_DATA_IN_priv ,wire_RW_priv, bus_RAM_DATA_OUT_priv);
+   cpu_v cpu_v_dut(bus_RAM_ADDRESS_priv, wire_clock_1MHz_priv, bus_RAM_DATA_OUT_priv, wire_RW_priv, bus_RAM_DATA_IN_priv,data_debug_priv);
    assign  bus_RAM_ADDRESS=bus_RAM_ADDRESS_priv;
    assign  bus_RAM_ADDRESS=bus_RAM_ADDRESS_priv;
    assign  wire_clock_50Mhz=wire_clock_50Mhz_priv;
