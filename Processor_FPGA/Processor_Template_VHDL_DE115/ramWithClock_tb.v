@@ -26,7 +26,7 @@ module ramWithClock_tb;
    initial
      begin
         
-        $display("clock = %x, data_out = %x",wire_clock_1MHz,data_debug);#10000000
+        $display("clock = %x, data_out = %x",wire_clock_1MHz,data_debug);#90000000
 	    $stop;
      end
    

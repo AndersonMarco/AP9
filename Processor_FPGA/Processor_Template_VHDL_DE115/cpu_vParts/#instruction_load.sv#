@@ -1,0 +1,24 @@
+`define instruction_load \
+casex(stage) \
+  8'h01: begin \
+     bus_RAM_ADDRESS=PC;\
+  end \
+  8'h02: begin \
+     END=bus_RAM_DATA_OUT; \
+     PC=PC+1;     \
+   end \
+  8'h03: begin \
+      bus_RAM_ADDRESS=END;\
+  end \
+  8'h03: begin \
+     casex(IR[6:9]):
+       8'h00: Rn[0]=bus_RAM_DATA_OUT; \
+       8'h01: Rn[0]=bus_RAM_DATA_OUT; \
+       8'h02: Rn[0]=bus_RAM_DATA_OUT; \
+       8'h03: Rn[0]=bus_RAM_DATA_OUT; \
+       8'h04: Rn[0]=bus_RAM_DATA_OUT; \
+       8'h0: Rn[0]=bus_RAM_DATA_OUT; \
+       8'h00: Rn[0]=bus_RAM_DATA_OUT; \
+       8'h00: Rn[0]=bus_RAM_DATA_OUT; \                    
+  end \
+endcase

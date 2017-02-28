@@ -1,7 +1,7 @@
-Analysis & Elaboration Status : Successful - Thu Feb 23 02:30:47 2017
+Analysis & Elaboration Status : Successful - Tue Feb 28 00:40:46 2017
 Quartus Prime Version : 16.1.0 Build 196 10/24/2016 SJ Lite Edition
 Revision Name : AP9
-Top-level Entity Name : clock_gen
+Top-level Entity Name : kit_v
 Family : Cyclone IV E
 Total logic elements : N/A until Partition Merge
     Total combinational functions : N/A until Partition Merge

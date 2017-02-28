@@ -1,0 +1,13 @@
+`define loadInstruction \
+stage=stage+8'h01; \
+casex(stage) \
+  8'h01: begin \
+     bus_RAM_ADDRESS=pc;\     
+     data_debug=pc;\
+  end  \
+  8'h02: begin \
+     processing_instruction=1'b1;\                            
+     instruction=bus_RAM_DATA_OUT; \
+        
+  end \
+endcase

@@ -1,5 +1,5 @@
 Flow report for AP9
-Thu Feb 23 02:30:47 2017
+Tue Feb 28 00:40:46 2017
 Quartus Prime Version 16.1.0 Build 196 10/24/2016 SJ Lite Edition
 
 
@@ -41,10 +41,10 @@ agreement for further details.
 +----------------------------------------------------------------------------------+
 ; Flow Summary                                                                     ;
 +------------------------------------+---------------------------------------------+
-; Flow Status                        ; Successful - Thu Feb 23 02:30:47 2017       ;
+; Flow Status                        ; Successful - Tue Feb 28 00:40:46 2017       ;
 ; Quartus Prime Version              ; 16.1.0 Build 196 10/24/2016 SJ Lite Edition ;
 ; Revision Name                      ; AP9                                         ;
-; Top-level Entity Name              ; clock_gen                                   ;
+; Top-level Entity Name              ; kit_v                                       ;
 ; Family                             ; Cyclone IV E                                ;
 ; Device                             ; EP4CE115F29C7                               ;
 ; Timing Models                      ; Final                                       ;
@@ -65,7 +65,7 @@ agreement for further details.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 02/23/2017 02:30:29 ;
+; Start date & time ; 02/28/2017 00:40:27 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; AP9                 ;
 +-------------------+---------------------+
@@ -77,7 +77,7 @@ agreement for further details.
 ; Assignment Name                      ; Value                                  ; Default Value ; Entity Name ; Section Id      ;
 +--------------------------------------+----------------------------------------+---------------+-------------+-----------------+
 ; BLOCK_DESIGN_NAMING                  ; QuartusII                              ; Auto          ; --          ; --              ;
-; COMPILER_SIGNATURE_ID                ; 167690707324593.148782782901598        ; --            ; --          ; --              ;
+; COMPILER_SIGNATURE_ID                ; 167690707324593.148825322723244        ; --            ; --          ; --              ;
 ; EDA_DESIGN_INSTANCE_NAME             ; NA                                     ; --            ; --          ; ramWithClock_tb ;
 ; EDA_NATIVELINK_SIMULATION_TEST_BENCH ; ramWithClock_tb                        ; --            ; --          ; eda_simulation  ;
 ; EDA_OUTPUT_DATA_FORMAT               ; Vhdl                                   ; --            ; --          ; eda_simulation  ;
@@ -93,14 +93,14 @@ agreement for further details.
 ; MISC_FILE                            ; lpm_rom0.cmp                           ; --            ; --          ; --              ;
 ; MISC_FILE                            ; RAM.bsf                                ; --            ; --          ; --              ;
 ; MISC_FILE                            ; RAM.cmp                                ; --            ; --          ; --              ;
-; PARTITION_COLOR                      ; -- (Not supported for targeted family) ; --            ; clock_gen   ; Top             ;
-; PARTITION_FITTER_PRESERVATION_LEVEL  ; -- (Not supported for targeted family) ; --            ; clock_gen   ; Top             ;
-; PARTITION_NETLIST_TYPE               ; -- (Not supported for targeted family) ; --            ; clock_gen   ; Top             ;
+; PARTITION_COLOR                      ; -- (Not supported for targeted family) ; --            ; kit_v       ; Top             ;
+; PARTITION_FITTER_PRESERVATION_LEVEL  ; -- (Not supported for targeted family) ; --            ; kit_v       ; Top             ;
+; PARTITION_NETLIST_TYPE               ; -- (Not supported for targeted family) ; --            ; kit_v       ; Top             ;
 ; POWER_BOARD_THERMAL_MODEL            ; None (CONSERVATIVE)                    ; --            ; --          ; --              ;
 ; POWER_PRESET_COOLING_SOLUTION        ; 23 MM HEAT SINK WITH 200 LFPM AIRFLOW  ; --            ; --          ; --              ;
 ; SMART_RECOMPILE                      ; On                                     ; Off           ; --          ; --              ;
 ; SYNTH_TIMING_DRIVEN_SYNTHESIS        ; Off                                    ; On            ; --          ; --              ;
-; TOP_LEVEL_ENTITY                     ; clock_gen                              ; AP9           ; --          ; --              ;
+; TOP_LEVEL_ENTITY                     ; kit_v                                  ; AP9           ; --          ; --              ;
 +--------------------------------------+----------------------------------------+---------------+-------------+-----------------+
 
 
@@ -109,8 +109,8 @@ agreement for further details.
 +------------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name            ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +------------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Elaboration ; 00:00:19     ; 1.0                     ; 1268 MB             ; 00:00:43                           ;
-; Total                  ; 00:00:19     ; --                      ; --                  ; 00:00:43                           ;
+; Analysis & Elaboration ; 00:00:20     ; 1.0                     ; 1320 MB             ; 00:00:46                           ;
+; Total                  ; 00:00:20     ; --                      ; --                  ; 00:00:46                           ;
 +------------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 
