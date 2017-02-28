@@ -1,5 +1,6 @@
 `include "cpu_vParts/loadInstruction.sv"
 `include "cpu_vParts/instruction_load.sv"
+`include "cpu_vParts/instruction_store.sv"
 
 module  cpu_v(bus_RAM_ADDRESS, wire_clock, bus_RAM_DATA_OUT, wire_RW, bus_RAM_DATA_IN,data_debug);
    output reg [15:0] bus_RAM_ADDRESS;
@@ -27,11 +28,17 @@ module  cpu_v(bus_RAM_ADDRESS, wire_clock, bus_RAM_DATA_OUT, wire_RW, bus_RAM_DA
    always @ (posedge wire_clock) begin
       stage=stage+8'h01;
       if(processing_instruction == 1'b0) begin
-         `loadInstruction;         
+         `loadInstruction;
+         data_debug=16'hffff;
       end else begin 
          casez(IR)   
-           16'b110000??????????: begin 
+           16'b110000??????????: begin
+              data_debug=16'h0000;
               `instruction_load;              
+           end
+            16'b110001??????????: begin
+               data_debug=16'h1111;
+              `instruction_store;
            end
         endcase
       end 
