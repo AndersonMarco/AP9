@@ -13,11 +13,16 @@ module  cpu_v(bus_RAM_ADDRESS, wire_clock, bus_RAM_DATA_OUT, wire_RW, bus_RAM_DA
    reg       processing_instruction;
    reg [15:0] IR;
    reg [15:0] PC;
-   reg [31:0] Rn [15:0];
-   reg [31:0] Rx;
-   reg [31:0] Ry;
+   reg [31:0][31:0] Rn;
    reg [15:0] END;
-
+	
+	reg [5:0]  endReg;
+	reg [15:0] dataIn;
+	reg [15:0] dataOut;
+	reg wr;
+	reg clock;
+   //selectRegisterToWrite selRxToW(endReg,Rn1,dataIn,wr);
+	//selectRegisterToRead  selRxToR(endReg,Rn,dataOut,wr);
    initial begin
       stage=8'h00;
       processing_instruction=1'b0;
@@ -38,6 +43,10 @@ module  cpu_v(bus_RAM_ADDRESS, wire_clock, bus_RAM_DATA_OUT, wire_RW, bus_RAM_DA
            end
             16'b110001??????????: begin
                data_debug=16'h1111;
+              `instruction_store;
+           end
+			   16'b110011??????????: begin
+               data_debug=16'haaaa;
               `instruction_store;
            end
         endcase

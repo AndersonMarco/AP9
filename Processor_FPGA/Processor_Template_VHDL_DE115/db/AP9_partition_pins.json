@@ -152,6 +152,74 @@
 					"strict" : false
 				},
 				{
+					"name" : "wire_RW",
+					"strict" : false
+				},
+				{
+					"name" : "bus_RAM_DATA_IN[0]",
+					"strict" : false
+				},
+				{
+					"name" : "bus_RAM_DATA_IN[1]",
+					"strict" : false
+				},
+				{
+					"name" : "bus_RAM_DATA_IN[2]",
+					"strict" : false
+				},
+				{
+					"name" : "bus_RAM_DATA_IN[3]",
+					"strict" : false
+				},
+				{
+					"name" : "bus_RAM_DATA_IN[4]",
+					"strict" : false
+				},
+				{
+					"name" : "bus_RAM_DATA_IN[5]",
+					"strict" : false
+				},
+				{
+					"name" : "bus_RAM_DATA_IN[6]",
+					"strict" : false
+				},
+				{
+					"name" : "bus_RAM_DATA_IN[7]",
+					"strict" : false
+				},
+				{
+					"name" : "bus_RAM_DATA_IN[8]",
+					"strict" : false
+				},
+				{
+					"name" : "bus_RAM_DATA_IN[9]",
+					"strict" : false
+				},
+				{
+					"name" : "bus_RAM_DATA_IN[10]",
+					"strict" : false
+				},
+				{
+					"name" : "bus_RAM_DATA_IN[11]",
+					"strict" : false
+				},
+				{
+					"name" : "bus_RAM_DATA_IN[12]",
+					"strict" : false
+				},
+				{
+					"name" : "bus_RAM_DATA_IN[13]",
+					"strict" : false
+				},
+				{
+					"name" : "bus_RAM_DATA_IN[14]",
+					"strict" : false
+				},
+				{
+					"name" : "bus_RAM_DATA_IN[15]",
+					"strict" : false
+				},
+				{
 					"name" : "data_debug[0]",
 					"strict" : false
 				},
