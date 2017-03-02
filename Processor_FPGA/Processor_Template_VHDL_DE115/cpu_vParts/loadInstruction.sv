@@ -7,6 +7,6 @@ casex(stage) \
      processing_instruction=1'b1; \
      IR=bus_RAM_DATA_OUT; \
      PC=PC+1'b1; \
-     stage=1'b0; \
+     stage=8'h00; \
   end \
 endcase
