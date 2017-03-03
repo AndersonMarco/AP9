@@ -3,39 +3,39 @@ TimeQuest Timing Analyzer Summary
 ------------------------------------------------------------
 
 Type  : Slow 1200mV 85C Model Setup 'clock_divider:clock_manager_dut|reg1Mhz'
-Slack : -3.914
-TNS   : -640.614
+Slack : -4.518
+TNS   : -850.999
 
 Type  : Slow 1200mV 85C Model Hold 'clock_divider:clock_manager_dut|reg1Mhz'
-Slack : 0.387
+Slack : 0.403
 TNS   : 0.000
 
 Type  : Slow 1200mV 85C Model Minimum Pulse Width 'clock_divider:clock_manager_dut|reg1Mhz'
 Slack : -1.285
-TNS   : -274.990
+TNS   : -278.845
 
 Type  : Slow 1200mV 0C Model Setup 'clock_divider:clock_manager_dut|reg1Mhz'
-Slack : -3.463
-TNS   : -567.527
+Slack : -4.029
+TNS   : -756.567
 
 Type  : Slow 1200mV 0C Model Hold 'clock_divider:clock_manager_dut|reg1Mhz'
-Slack : 0.338
+Slack : 0.353
 TNS   : 0.000
 
 Type  : Slow 1200mV 0C Model Minimum Pulse Width 'clock_divider:clock_manager_dut|reg1Mhz'
 Slack : -1.285
-TNS   : -274.990
+TNS   : -278.845
 
 Type  : Fast 1200mV 0C Model Setup 'clock_divider:clock_manager_dut|reg1Mhz'
-Slack : -1.374
-TNS   : -201.884
+Slack : -1.786
+TNS   : -302.603
 
 Type  : Fast 1200mV 0C Model Hold 'clock_divider:clock_manager_dut|reg1Mhz'
-Slack : 0.173
+Slack : 0.181
 TNS   : 0.000
 
 Type  : Fast 1200mV 0C Model Minimum Pulse Width 'clock_divider:clock_manager_dut|reg1Mhz'
 Slack : -1.000
-TNS   : -214.000
+TNS   : -217.000
 
 ------------------------------------------------------------

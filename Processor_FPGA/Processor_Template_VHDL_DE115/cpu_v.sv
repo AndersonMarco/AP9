@@ -3,6 +3,7 @@
 `include "cpu_vParts/instruction_store.sv"
 `include "cpu_vParts/instruction_storei.sv"
 `include "cpu_vParts/instruction_loadi.sv"
+`include "cpu_vParts/instruction_loadn.sv"
 
 module  cpu_v(bus_RAM_ADDRESS, wire_clock, bus_RAM_DATA_OUT, wire_RW, bus_RAM_DATA_IN,data_debug);
    output reg [15:0] bus_RAM_ADDRESS;
@@ -55,6 +56,10 @@ module  cpu_v(bus_RAM_ADDRESS, wire_clock, bus_RAM_DATA_OUT, wire_RW, bus_RAM_DA
                data_debug=16'hbbbb;
               `instruction_loadi;
            end
+           16'b111000??????????: begin
+               data_debug=16'hbbbb;
+              `instruction_loadn;
+           end           
         endcase
       end 
    end 

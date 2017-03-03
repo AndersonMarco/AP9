@@ -1,5 +1,5 @@
 Analysis & Elaboration report for AP9
-Wed Mar  1 19:31:24 2017
+Fri Mar  3 00:21:34 2017
 Quartus Prime Version 16.1.0 Build 196 10/24/2016 SJ Lite Edition
 
 
@@ -41,7 +41,7 @@ agreement for further details.
 +----------------------------------------------------------------------------------+
 ; Analysis & Elaboration Summary                                                   ;
 +------------------------------------+---------------------------------------------+
-; Analysis & Elaboration Status      ; Successful - Wed Mar  1 19:31:24 2017       ;
+; Analysis & Elaboration Status      ; Successful - Fri Mar  3 00:21:34 2017       ;
 ; Quartus Prime Version              ; 16.1.0 Build 196 10/24/2016 SJ Lite Edition ;
 ; Revision Name                      ; AP9                                         ;
 ; Top-level Entity Name              ; kit_v                                       ;
@@ -265,12 +265,12 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Elaboration
     Info: Version 16.1.0 Build 196 10/24/2016 SJ Lite Edition
-    Info: Processing started: Wed Mar  1 19:31:04 2017
+    Info: Processing started: Fri Mar  3 00:21:13 2017
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off AP9 -c AP9 --analysis_and_elaboration
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 2 of the 2 processors detected
 Info (12021): Found 1 design units, including 1 entities, in source file cpu_v.sv
-    Info (12023): Found entity 1: cpu_v File: /home/kite/workspace/AP9/Processor_FPGA/Processor_Template_VHDL_DE115/cpu_v.sv Line: 5
+    Info (12023): Found entity 1: cpu_v File: /home/kite/workspace/AP9/Processor_FPGA/Processor_Template_VHDL_DE115/cpu_v.sv Line: 8
 Info (12021): Found 1 design units, including 1 entities, in source file kit_v.v
     Info (12023): Found entity 1: kit_v File: /home/kite/workspace/AP9/Processor_FPGA/Processor_Template_VHDL_DE115/kit_v.v Line: 1
 Info (12021): Found 1 design units, including 1 entities, in source file clock_gen.v
@@ -386,6 +386,7 @@ Info (12133): Instantiated megafunction "RAM:ram_dut|altsyncram:altsyncram_compo
 Info (12021): Found 1 design units, including 1 entities, in source file db/altsyncram_rgr3.tdf
     Info (12023): Found entity 1: altsyncram_rgr3 File: /home/kite/workspace/AP9/Processor_FPGA/Processor_Template_VHDL_DE115/db/altsyncram_rgr3.tdf Line: 34
 Info (12128): Elaborating entity "altsyncram_rgr3" for hierarchy "RAM:ram_dut|altsyncram:altsyncram_component|altsyncram_rgr3:auto_generated" File: /opt/intelFPGA_lite/16.1/quartus/libraries/megafunctions/altsyncram.tdf Line: 792
+Critical Warning (127005): Memory depth (65536) in the design file differs from memory depth (32768) in the Memory Initialization File "/home/kite/workspace/AP9/Processor_FPGA/Processor_Template_VHDL_DE115/cpuram.mif" -- setting initial value for remaining addresses to 0 File: /home/kite/workspace/AP9/Processor_FPGA/Processor_Template_VHDL_DE115/RAM.vhd Line: 61
 Info (12021): Found 1 design units, including 1 entities, in source file db/decode_rsa.tdf
     Info (12023): Found entity 1: decode_rsa File: /home/kite/workspace/AP9/Processor_FPGA/Processor_Template_VHDL_DE115/db/decode_rsa.tdf Line: 23
 Info (12128): Elaborating entity "decode_rsa" for hierarchy "RAM:ram_dut|altsyncram:altsyncram_component|altsyncram_rgr3:auto_generated|decode_rsa:decode3" File: /home/kite/workspace/AP9/Processor_FPGA/Processor_Template_VHDL_DE115/db/altsyncram_rgr3.tdf Line: 45
@@ -396,16 +397,21 @@ Info (12021): Found 1 design units, including 1 entities, in source file db/mux_
     Info (12023): Found entity 1: mux_qob File: /home/kite/workspace/AP9/Processor_FPGA/Processor_Template_VHDL_DE115/db/mux_qob.tdf Line: 23
 Info (12128): Elaborating entity "mux_qob" for hierarchy "RAM:ram_dut|altsyncram:altsyncram_component|altsyncram_rgr3:auto_generated|mux_qob:mux2" File: /home/kite/workspace/AP9/Processor_FPGA/Processor_Template_VHDL_DE115/db/altsyncram_rgr3.tdf Line: 47
 Info (12128): Elaborating entity "cpu_v" for hierarchy "cpu_v:cpu_v_dut" File: /home/kite/workspace/AP9/Processor_FPGA/Processor_Template_VHDL_DE115/kit_v.v Line: 40
-Info (10264): Verilog HDL Case Statement information at cpu_v.sv(36): all case item expressions in this case statement are onehot File: /home/kite/workspace/AP9/Processor_FPGA/Processor_Template_VHDL_DE115/cpu_v.sv Line: 36
-Warning (10230): Verilog HDL assignment warning at cpu_v.sv(42): truncated value with size 32 to match size of target (16) File: /home/kite/workspace/AP9/Processor_FPGA/Processor_Template_VHDL_DE115/cpu_v.sv Line: 42
-Warning (10230): Verilog HDL assignment warning at cpu_v.sv(46): truncated value with size 32 to match size of target (16) File: /home/kite/workspace/AP9/Processor_FPGA/Processor_Template_VHDL_DE115/cpu_v.sv Line: 46
-Warning (10027): Verilog HDL or VHDL warning at the cpu_v.sv(46): index expression is not wide enough to address all of the elements in the array File: /home/kite/workspace/AP9/Processor_FPGA/Processor_Template_VHDL_DE115/cpu_v.sv Line: 46
-Warning (10230): Verilog HDL assignment warning at cpu_v.sv(50): truncated value with size 32 to match size of target (16) File: /home/kite/workspace/AP9/Processor_FPGA/Processor_Template_VHDL_DE115/cpu_v.sv Line: 50
-Warning (10027): Verilog HDL or VHDL warning at the cpu_v.sv(50): index expression is not wide enough to address all of the elements in the array File: /home/kite/workspace/AP9/Processor_FPGA/Processor_Template_VHDL_DE115/cpu_v.sv Line: 50
-Info: Quartus Prime Analysis & Elaboration was successful. 0 errors, 12 warnings
-    Info: Peak virtual memory: 1320 megabytes
-    Info: Processing ended: Wed Mar  1 19:31:24 2017
-    Info: Elapsed time: 00:00:20
-    Info: Total CPU time (on all processors): 00:00:46
+Info (10264): Verilog HDL Case Statement information at cpu_v.sv(39): all case item expressions in this case statement are onehot File: /home/kite/workspace/AP9/Processor_FPGA/Processor_Template_VHDL_DE115/cpu_v.sv Line: 39
+Warning (10230): Verilog HDL assignment warning at cpu_v.sv(45): truncated value with size 32 to match size of target (16) File: /home/kite/workspace/AP9/Processor_FPGA/Processor_Template_VHDL_DE115/cpu_v.sv Line: 45
+Warning (10230): Verilog HDL assignment warning at cpu_v.sv(49): truncated value with size 32 to match size of target (16) File: /home/kite/workspace/AP9/Processor_FPGA/Processor_Template_VHDL_DE115/cpu_v.sv Line: 49
+Warning (10027): Verilog HDL or VHDL warning at the cpu_v.sv(49): index expression is not wide enough to address all of the elements in the array File: /home/kite/workspace/AP9/Processor_FPGA/Processor_Template_VHDL_DE115/cpu_v.sv Line: 49
+Warning (10027): Verilog HDL or VHDL warning at the cpu_v.sv(53): index expression is not wide enough to address all of the elements in the array File: /home/kite/workspace/AP9/Processor_FPGA/Processor_Template_VHDL_DE115/cpu_v.sv Line: 53
+Warning (10230): Verilog HDL assignment warning at cpu_v.sv(53): truncated value with size 32 to match size of target (16) File: /home/kite/workspace/AP9/Processor_FPGA/Processor_Template_VHDL_DE115/cpu_v.sv Line: 53
+Warning (10027): Verilog HDL or VHDL warning at the cpu_v.sv(57): index expression is not wide enough to address all of the elements in the array File: /home/kite/workspace/AP9/Processor_FPGA/Processor_Template_VHDL_DE115/cpu_v.sv Line: 57
+Warning (10230): Verilog HDL assignment warning at cpu_v.sv(57): truncated value with size 32 to match size of target (16) File: /home/kite/workspace/AP9/Processor_FPGA/Processor_Template_VHDL_DE115/cpu_v.sv Line: 57
+Info (10264): Verilog HDL Case Statement information at cpu_v.sv(57): all case item expressions in this case statement are onehot File: /home/kite/workspace/AP9/Processor_FPGA/Processor_Template_VHDL_DE115/cpu_v.sv Line: 57
+Warning (10230): Verilog HDL assignment warning at cpu_v.sv(61): truncated value with size 32 to match size of target (16) File: /home/kite/workspace/AP9/Processor_FPGA/Processor_Template_VHDL_DE115/cpu_v.sv Line: 61
+Info (10264): Verilog HDL Case Statement information at cpu_v.sv(61): all case item expressions in this case statement are onehot File: /home/kite/workspace/AP9/Processor_FPGA/Processor_Template_VHDL_DE115/cpu_v.sv Line: 61
+Info: Quartus Prime Analysis & Elaboration was successful. 0 errors, 16 warnings
+    Info: Peak virtual memory: 1322 megabytes
+    Info: Processing ended: Fri Mar  3 00:21:34 2017
+    Info: Elapsed time: 00:00:21
+    Info: Total CPU time (on all processors): 00:00:48
 
 
