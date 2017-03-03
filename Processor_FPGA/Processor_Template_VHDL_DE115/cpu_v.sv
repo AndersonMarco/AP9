@@ -4,28 +4,29 @@
 `include "cpu_vParts/instruction_storei.sv"
 `include "cpu_vParts/instruction_loadi.sv"
 `include "cpu_vParts/instruction_loadn.sv"
+`include "cpu_vParts/instruction_mov.sv"
 
 module  cpu_v(bus_RAM_ADDRESS, wire_clock, bus_RAM_DATA_OUT, wire_RW, bus_RAM_DATA_IN,data_debug);
    output reg [15:0] bus_RAM_ADDRESS;
-   input wire        wire_clock;   
-   input wire  [15:0] bus_RAM_DATA_OUT;
-   output reg  wire_RW;
-   output reg   [15:0] bus_RAM_DATA_IN;
-   output reg   [15:0] data_debug;
-   reg [7:0] stage;
-   reg       processing_instruction;
-   reg [15:0] IR;
-   reg [15:0] PC;
-   reg [31:0][31:0] Rn;
-   reg [15:0] END;
-	
-	reg [5:0]  endReg;
-	reg [15:0] dataIn;
-	reg [15:0] dataOut;
-	reg wr;
-	reg clock;
-   //selectRegisterToWrite selRxToW(endReg,Rn1,dataIn,wr);
-	//selectRegisterToRead  selRxToR(endReg,Rn,dataOut,wr);
+   input wire         wire_clock;   
+   input wire [15:0] bus_RAM_DATA_OUT;
+   output reg        wire_RW;
+   output reg [15:0] bus_RAM_DATA_IN;
+   output reg [15:0] data_debug;
+   reg [7:0]         stage;
+   reg               processing_instruction;
+   reg [15:0]        IR;
+   reg [15:0]        PC;
+   reg [31:0][31:0]  Rn;
+   reg [15:0]        END;
+   reg [5:0]         endReg;
+   reg [15:0]        dataIn;
+   reg [15:0]        dataOut;
+   reg [31:0]        SP;
+   reg               wr;
+   reg               clock;
+//selectRegisterToWrite selRxToW(endReg,Rn1,dataIn,wr);
+//selectRegisterToRead  selRxToR(endReg,Rn,dataOut,wr);
    initial begin
       stage=8'h00;
       processing_instruction=1'b0;
@@ -45,24 +46,26 @@ module  cpu_v(bus_RAM_ADDRESS, wire_clock, bus_RAM_DATA_OUT, wire_RW, bus_RAM_DA
               `instruction_load;
            end
            16'b110001??????????: begin
-               data_debug=16'h1111;
+              data_debug=16'h1111;
               `instruction_store;
            end
 		   16'b111101??????????: begin
-               data_debug=16'haaaa;
+              data_debug=16'haaaa;
               `instruction_storei;
            end
            16'b111100??????????: begin
-               data_debug=16'hbbbb;
+              data_debug=16'hbbbb;
               `instruction_loadi;
            end
            16'b111000??????????: begin
-               data_debug=16'hbbbb;
+              data_debug=16'h2222;
               `instruction_loadn;
+           end
+           16'b110011??????????: begin
+              data_debug=16'h2222;
+              `instruction_mov;
            end           
-        endcase
+         endcase
       end 
    end 
-
-   
 endmodule 
