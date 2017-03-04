@@ -6,13 +6,19 @@
 `include "cpu_vParts/instruction_loadn.sv"
 `include "cpu_vParts/instruction_mov.sv"
 
-module  cpu_v(bus_RAM_ADDRESS, wire_clock, bus_RAM_DATA_OUT, wire_RW, bus_RAM_DATA_IN,data_debug);
-   output reg [15:0] bus_RAM_ADDRESS;
-   input wire         wire_clock;   
-   input wire [15:0] bus_RAM_DATA_OUT;
-   output reg        wire_RW;
-   output reg [15:0] bus_RAM_DATA_IN;
-   output reg [15:0] data_debug;
+module  cpu_v(wire_clock, wire_reset, bus_RAM_DATA_IN,bus_RAM_DATA_OUT,bus_RAM_ADDRESS,wire_RW, bus_keyboard, wire_videoflag, bus_vga_pos, bus_vga_char,data_debug);
+   input wire         wire_clock;
+   input wire         wire_reset;
+   output reg [15:0]  bus_RAM_DATA_IN;
+   input wire [15:0]  bus_RAM_DATA_OUT;
+   output reg [15:0]  bus_RAM_ADDRESS;
+   output reg         wire_RW;
+   input  wire [7:0]  bus_keyboard;
+   output reg        wire_videoflag;
+   output reg [15:0] bus_vga_pos;
+   output reg [15:0] bus_vga_char;
+   output reg [15:0]  data_debug;
+   
    reg [7:0]         stage;
    reg               processing_instruction;
    reg [15:0]        IR;
