@@ -1,0 +1,2 @@
+Warning (10268): Verilog HDL information at inc_stage.sv(8): always construct contains both blocking and non-blocking assignments File: /home/kite/workspace/AP9/Processor_FPGA/Processor_Template_VHDL_DE115/inc_stage.sv Line: 8
+Warning (10268): Verilog HDL information at cpu_v.sv(110): always construct contains both blocking and non-blocking assignments File: /home/kite/workspace/AP9/Processor_FPGA/Processor_Template_VHDL_DE115/cpu_v.sv Line: 110

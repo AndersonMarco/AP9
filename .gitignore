@@ -59,3 +59,5 @@ CMakeCache.txt
 *.hier_info
 db
 incremental_db
+*.qmsg
+*.tmw_info

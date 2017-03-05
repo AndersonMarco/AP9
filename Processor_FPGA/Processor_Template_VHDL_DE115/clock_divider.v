@@ -21,9 +21,9 @@ module clock_divider(clock,clock50Mhz,clock25Mhz,clock1Mhz,clock1Khz);
    initial begin
       counter1Mhz=8'h00;
       counter1Khz=16'h0000;     
-      reg25Mhz=1'b0;
-      reg1Mhz=1'b0;
-      reg1Khz=1'b0;
+      reg25Mhz=1'b1;
+      reg1Mhz=1'b1;
+      reg1Khz=1'b1;
    end
    always @ (posedge clock) begin     
       reg25Mhz=~reg25Mhz;               

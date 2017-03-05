@@ -1,12 +1,12 @@
-`include "cpu_vParts/loadInstruction.sv"
-`include "cpu_vParts/instruction_load.sv"
-`include "cpu_vParts/instruction_store.sv"
-`include "cpu_vParts/instruction_storei.sv"
-`include "cpu_vParts/instruction_loadi.sv"
-`include "cpu_vParts/instruction_loadn.sv"
-`include "cpu_vParts/instruction_mov.sv"
-
-module  cpu_v(wire_clock, wire_reset, bus_RAM_DATA_IN,bus_RAM_DATA_OUT,bus_RAM_ADDRESS,wire_RW, bus_keyboard, wire_videoflag, bus_vga_pos, bus_vga_char,data_debug);
+`include "cpu_vParts/control_unit/loadInstruction.sv"
+`include "cpu_vParts/control_unit/instruction_load.sv"
+`include "cpu_vParts/control_unit/instruction_store.sv"
+`include "cpu_vParts/control_unit/instruction_storei.sv"
+`include "cpu_vParts/control_unit/instruction_loadi.sv"
+`include "cpu_vParts/control_unit/instruction_loadn.sv"
+`include "cpu_vParts/control_unit/instruction_mov.sv"
+`include "cpu_vParts/control_unit/instruction_outchar.sv"
+module  cpu_v(wire_clock, wire_reset, bus_RAM_DATA_IN,bus_RAM_DATA_OUT,bus_RAM_ADDRESS,wire_RW, bus_keyboard, videoflag, bus_vga_pos, bus_vga_char,data_debug);
    input wire         wire_clock;
    input wire         wire_reset;
    output reg [15:0]  bus_RAM_DATA_IN;
@@ -14,11 +14,13 @@ module  cpu_v(wire_clock, wire_reset, bus_RAM_DATA_IN,bus_RAM_DATA_OUT,bus_RAM_A
    output reg [15:0]  bus_RAM_ADDRESS;
    output reg         wire_RW;
    input  wire [7:0]  bus_keyboard;
-   output reg        wire_videoflag;
+   output reg        videoflag;
    output reg [15:0] bus_vga_pos;
    output reg [15:0] bus_vga_char;
    output reg [15:0]  data_debug;
+
    
+   reg               resetStage;   
    reg [7:0]         stage;
    reg               processing_instruction;
    reg [15:0]        IR;
@@ -31,6 +33,22 @@ module  cpu_v(wire_clock, wire_reset, bus_RAM_DATA_IN,bus_RAM_DATA_OUT,bus_RAM_A
    reg [31:0]        SP;
    reg               wr;
    reg               clock;
+   
+   
+   reg               EQual;
+   reg               Zero;
+   reg               Carry;
+   reg               GReater;
+   reg               LEsser;
+   reg               Overflow;
+   reg               Negative;
+   reg               DivbyZero;
+
+
+   reg               startedProcessing;
+
+
+
 //selectRegisterToWrite selRxToW(endReg,Rn1,dataIn,wr);
 //selectRegisterToRead  selRxToR(endReg,Rn,dataOut,wr);
    initial begin
@@ -38,10 +56,21 @@ module  cpu_v(wire_clock, wire_reset, bus_RAM_DATA_IN,bus_RAM_DATA_OUT,bus_RAM_A
       processing_instruction=1'b0;
       wire_RW=1'b0;    
       data_debug=16'h0000;
-      PC= 16'h0000;      
+      PC= 16'h0000;
+      EQual=1'b1;
+      Zero=1'b0;
+      Carry=1'b0;
+      GReater=1'b0;
+      LEsser=1'b0;     
+      Overflow=1'b0;
+      Negative=1'b0;
+      DivbyZero=1'b0;
+      startedProcessing=1'b0;      
    end
-   always @ (posedge wire_clock) begin
-      stage=stage+8'h01;
+   always @ (posedge wire_clock & startedProcessing) begin
+      if(resetStage==1'b1 && stage==8'h01 ) begin
+         resetStage=1'b0;         
+      end
       if(processing_instruction == 1'b0) begin
          `loadInstruction;
          data_debug=16'hffff;
@@ -70,8 +99,21 @@ module  cpu_v(wire_clock, wire_reset, bus_RAM_DATA_IN,bus_RAM_DATA_OUT,bus_RAM_A
            16'b110011??????????: begin
               data_debug=16'h2222;
               `instruction_mov;
+           end
+           16'b110010??????????: begin
+              `instruction_outchar;
            end           
+
          endcase
       end 
-   end 
+   end // always @ (posedge wire_clock)
+   always @( negedge wire_clock) begin
+      startedProcessing=1'b1;
+      if(resetStage==1'b1) begin
+         stage<=8'h01;    
+      end
+      else begin
+         stage<=stage+8'h01;    
+      end
+   end
 endmodule 
