@@ -13,7 +13,6 @@ casex(stage) \
   8'h04: begin \
      wire_RW=1'b1;\
      bus_RAM_DATA_IN=Rn[IR[9:7]];\
-     data_debug=Rn[IR[9:7]];\
   end \
   8'h05: begin \
      wire_RW=1'b0;\

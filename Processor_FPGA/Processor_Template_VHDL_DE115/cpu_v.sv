@@ -6,6 +6,7 @@
 `include "cpu_vParts/control_unit/instruction_loadn.sv"
 `include "cpu_vParts/control_unit/instruction_mov.sv"
 `include "cpu_vParts/control_unit/instruction_outchar.sv"
+`include "cpu_vParts/control_unit/instructions_jump.sv"
 module  cpu_v(wire_clock, wire_reset, bus_RAM_DATA_IN,bus_RAM_DATA_OUT,bus_RAM_ADDRESS,wire_RW, bus_keyboard, videoflag, bus_vga_pos, bus_vga_char,data_debug);
    input wire         wire_clock;
    input wire         wire_reset;
@@ -25,7 +26,7 @@ module  cpu_v(wire_clock, wire_reset, bus_RAM_DATA_IN,bus_RAM_DATA_OUT,bus_RAM_A
    reg               processing_instruction;
    reg [15:0]        IR;
    reg [15:0]        PC;
-   reg [31:0][31:0]  Rn;
+   reg [7:0][15:0]   Rn;
    reg [15:0]        END;
    reg [5:0]         endReg;
    reg [15:0]        dataIn;
@@ -77,7 +78,6 @@ module  cpu_v(wire_clock, wire_reset, bus_RAM_DATA_IN,bus_RAM_DATA_OUT,bus_RAM_A
       end else begin 
          casez(IR)   
            16'b110000??????????: begin
-              data_debug=16'h0000;
               `instruction_load;
            end
            16'b110001??????????: begin
@@ -97,13 +97,16 @@ module  cpu_v(wire_clock, wire_reset, bus_RAM_DATA_IN,bus_RAM_DATA_OUT,bus_RAM_A
               `instruction_loadn;
            end
            16'b110011??????????: begin
-              data_debug=16'h2222;
+              data_debug=16'h3333;
               `instruction_mov;
            end
            16'b110010??????????: begin
               `instruction_outchar;
-           end           
-
+           end
+           16'b000010??????????: begin
+              data_debug=16'h7777;
+              `instructions_jump;
+           end
          endcase
       end 
    end // always @ (posedge wire_clock)
