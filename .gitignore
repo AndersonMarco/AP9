@@ -32,32 +32,11 @@
 *.dSYM/
 
 
-*.cdb
-*.hdb
-
 *.bak
 
-simulation
 CMakeFiles
 cmake_install.cmake
 CMakeCache.txt
+ambient*
 
-*.rpt
-*.summary
-*.mif
-*.pof
-*.sof
-*.pin
-*.bpm
-*.idb
-*.rdb
-*.hsd
-*.qmsg
-*.db_info
-*.qmsg
-*.hif
-*.hier_info
-db
-incremental_db
-*.qmsg
-*.tmw_info
+
