@@ -17,7 +17,7 @@ module  cpu_v(wire_clock, wire_reset, bus_RAM_DATA_IN,bus_RAM_DATA_OUT,bus_RAM_A
    reg               processing_instruction;
    reg [15:0]        IR;
    reg [15:0]        PC;
-   reg [7:0]   Rn [15:0];
+   reg [7:0][15:0]   Rn ;
    reg [15:0]        END;
    reg [5:0]         endReg;
    reg [15:0]        dataIn;
@@ -224,7 +224,7 @@ module  cpu_v(wire_clock, wire_reset, bus_RAM_DATA_IN,bus_RAM_DATA_OUT,bus_RAM_A
 					  8'h03: begin 
 					     videoflag=1'b0; 
 					  end 
-                 8'h93: begin                    
+                 8'h04: begin                    
                    processing_instruction=1'b0; 
                    resetStage=1'b1; 
                  end 
