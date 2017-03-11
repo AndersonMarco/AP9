@@ -20,6 +20,8 @@ module  cpu_v(wire_clock, wire_reset, bus_RAM_DATA_IN,bus_RAM_DATA_OUT,bus_RAM_A
    reg                startedProcessing;
    reg [15:0]         IR;
    reg [15:0]         PC;
+   reg [15:0]         m3;
+   reg [15:0]         m4;
    
    
    reg [15:0]         Rn [0:7] ;
@@ -68,10 +70,8 @@ module  cpu_v(wire_clock, wire_reset, bus_RAM_DATA_IN,bus_RAM_DATA_OUT,bus_RAM_A
 	     DivbyZero=1'b0;
 	     videoflag=1'b0;
 	     resetStage=1'b0;
-	     data_debug=16'h0246;
 	     Rn[1]=16'h0121;
 	     Rn[3]=16'h0241;
-	     bus_vga_pos= 16'h0205;
 	     definingVariables=1'b0;
       end
       else begin
@@ -115,37 +115,36 @@ module  cpu_v(wire_clock, wire_reset, bus_RAM_DATA_IN,bus_RAM_DATA_OUT,bus_RAM_A
                       bus_RAM_ADDRESS=PC;
                    end 
                    8'h02: begin 
-                   END=bus_RAM_DATA_IN; 
-                   PC=PC+1;     
-                 end 
-              8'h03: begin 
-                 bus_RAM_ADDRESS=END;
-                 end 
-         8'h04: begin 
-            Rn[IR[9:7]]=bus_RAM_DATA_IN;
-            processing_instruction=1'b0;
-            resetStage=1'b1;
-         end 
+                      END=bus_RAM_DATA_IN; 
+                      PC=PC+1;     
+                   end 
+                   8'h03: begin 
+                      bus_RAM_ADDRESS=END;
+                   end 
+                   8'h04: begin 
+                      Rn[IR[9:7]]=bus_RAM_DATA_IN;
+                      processing_instruction=1'b0;
+                      resetStage=1'b1;
+                   end 
                  endcase              
               end
               16'b110001??????????: begin
-                 //`instruction_store;================================
-                 
+                 //`instruction_store;================================ 
                  casex(stage) 
                    8'h01: begin 
                       bus_RAM_ADDRESS=PC;
                    end 
                    8'h02: begin 
-                   END=bus_RAM_DATA_IN; 
-                   PC=PC+1;
-                 end 
-              8'h03: begin 
-                 bus_RAM_ADDRESS=END;
-                 end 
-         8'h04: begin 
-            wire_RW=1'b1;
-            bus_RAM_DATA_OUT=Rn[IR[9:7]];
-         end 
+                      END=bus_RAM_DATA_IN; 
+                      PC=PC+1;
+                   end 
+                   8'h03: begin 
+                      bus_RAM_ADDRESS=END;
+                   end 
+                   8'h04: begin 
+                      wire_RW=1'b1;
+                      bus_RAM_DATA_OUT=Rn[IR[9:7]];
+                   end
                    8'h05: begin 
                       wire_RW=1'b0;
                       processing_instruction=1'b0;
@@ -154,8 +153,7 @@ module  cpu_v(wire_clock, wire_reset, bus_RAM_DATA_IN,bus_RAM_DATA_OUT,bus_RAM_A
                  endcase
               end
 		      16'b111101??????????: begin
-                 //`instruction_storei;=================================
-                 
+                 //`instruction_storei;================================= 
                  casex(stage) 
                    8'h01: begin 
                       bus_RAM_ADDRESS=Rn[IR[9:7]];
@@ -172,8 +170,7 @@ module  cpu_v(wire_clock, wire_reset, bus_RAM_DATA_IN,bus_RAM_DATA_OUT,bus_RAM_A
                  endcase
               end
               16'b111100??????????: begin
-                 //`instruction_loadi;================================
-                 
+                 //`instruction_loadi;================================  
                  casex(stage) 
                    8'h01: begin 
                       bus_RAM_ADDRESS=Rn[IR[6:4]];
@@ -186,7 +183,7 @@ module  cpu_v(wire_clock, wire_reset, bus_RAM_DATA_IN,bus_RAM_DATA_OUT,bus_RAM_A
                  endcase
               end
               16'b111000??????????: begin              
-                 //`instruction_loadn;===============================              
+                 //`instruction_loadn;=============================== 
                  casex(stage) 
                    8'h01: begin 
                       bus_RAM_ADDRESS=PC; 
@@ -201,11 +198,10 @@ module  cpu_v(wire_clock, wire_reset, bus_RAM_DATA_IN,bus_RAM_DATA_OUT,bus_RAM_A
               end
               16'b110011??????????: begin
                  //`instruction_mov;=================================
-                 
                  casex(stage) 
                    8'h01: begin 
-                      casez(IR[1:0]) 
-                        2'bX0: begin 
+                      casex(IR[1:0]) 
+                        2'b?0: begin 
                            Rn[IR[9:7]]= Rn[IR[6:4]]; 
                         end 
                         2'b01: begin 
@@ -243,9 +239,7 @@ module  cpu_v(wire_clock, wire_reset, bus_RAM_DATA_IN,bus_RAM_DATA_OUT,bus_RAM_A
 			     endcase
               end
               16'b000010??????????: begin
-                 //`instructions_jump;==============================
-                 
-                 
+                 //`instructions_jump;===============================
                  casex(stage) 
                    8'h01: begin 
                       bus_RAM_ADDRESS=PC; 
