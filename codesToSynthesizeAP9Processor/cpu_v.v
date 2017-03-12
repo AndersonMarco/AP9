@@ -37,6 +37,7 @@ module  cpu_v(wire_clock, wire_reset, bus_RAM_DATA_IN,bus_RAM_DATA_OUT,bus_RAM_A
    reg               clock;
 
 
+   reg [15:0]        FR;
    reg               EQual;
    reg               Zero;
    reg               Carry;
@@ -70,6 +71,7 @@ module  cpu_v(wire_clock, wire_reset, bus_RAM_DATA_IN,bus_RAM_DATA_OUT,bus_RAM_A
 	     DivbyZero=1'b0;
 	     videoflag=1'b0;
 	     resetStage=1'b0;
+         FR=16'h0000;       
 	     Rn[1]=16'h0121;
 	     Rn[3]=16'h0241;
 	     definingVariables=1'b0;
@@ -250,72 +252,86 @@ module  cpu_v(wire_clock, wire_reset, bus_RAM_DATA_IN,bus_RAM_DATA_OUT,bus_RAM_A
                            PC=bus_RAM_DATA_IN-16'h0001; 
                         end 
                         4'b0001: begin 
-                           if(EQual==1'b1) begin 
+                           if(FR[13]==1'b1) begin
+                              //Equal
                               PC=bus_RAM_DATA_IN-16'h0001; 
                            end 
                         end 
                         4'b0010: begin 
-                           if(EQual==1'b0) begin 
+                           if(FR[13]==1'b0) begin
+                              //Not EQual
                               PC=bus_RAM_DATA_IN-16'h0001; 
                            end 
                         end 
                         4'b0011: begin 
-                           if(Zero==1'b1) begin 
+                           if(FR[12]==1'b1) begin
+                              //Zero
                               PC=bus_RAM_DATA_IN-16'h0001; 
                            end 
                         end 
                         4'b0100: begin 
-                           if(Zero==1'b0) begin 
+                           if(FR[12]==1'b0) begin
+                              //Not Zero
                               PC=bus_RAM_DATA_IN-16'h0001; 
                            end 
                         end
                         4'b0101: begin 
-                           if(Carry==1'b1) begin 
+                           if(FR[11]==1'b1) begin
+                              //Carry
                               PC=bus_RAM_DATA_IN-16'h0001; 
                            end 
                         end 
                         4'b0110: begin 
-                           if(Carry==1'b0) begin 
+                           if(FR[11]==1'b0) begin
+                              //NotCarry
                               PC=bus_RAM_DATA_IN-16'h0001; 
                            end 
                         end 
                         4'b0111: begin 
-                           if(GReater==1'b1) begin 
+                           if(FR[15]==1'b1) begin
+                              //GReater
                               PC=bus_RAM_DATA_IN-16'h0001; 
                            end 
                         end 
                         4'b1000: begin 
-                           if(LEsser==1'b1) begin 
+                           if(FR[14]==1'b1) begin
+                              //LEsser
                               PC=bus_RAM_DATA_IN-16'h0001; 
                            end 
                         end 
                         4'b1001: begin 
-                           if((GReater|EQual)==1'b1) begin 
+                           if((FR[15]|FR[13])==1'b1) begin
+                              //GReater|EQual
                               PC=bus_RAM_DATA_IN-16'h0001; 
                            end 
                         end 
                         4'b1010: begin 
-                           if((LEsser|EQual)==1'b1) begin 
+                           if((FR[14]|FR[13])==1'b1) begin
+                              //(LEsser|EQual)
                               PC=bus_RAM_DATA_IN-16'h0001; 
                            end 
                         end 
                         4'b1011: begin 
-                           if(Overflow==1'b1) begin 
+                           if(FR[10]==1'b1) begin
+                              //Overflow
                               PC=bus_RAM_DATA_IN-16'h0001; 
                            end 
                         end 
                         4'b1100: begin 
-                           if(Overflow==1'b0) begin 
+                           if(FR[10]==1'b0) begin
+                              //NotOverflow
                               PC=bus_RAM_DATA_IN-16'h0001; 
                            end 
                         end 
                         4'b1101: begin 
-                           if(Negative==1'b1) begin 
+                           if(FR[6]==1'b1) begin
+                              //Negative
                               PC=bus_RAM_DATA_IN-16'h0001; 
                            end 
                         end 
                         4'b1110: begin 
-                           if(DivbyZero==1'b1) begin 
+                           if(FR[9]==1'b1) begin
+                              //DivbyZero
                               PC=bus_RAM_DATA_IN-16'h0001; 
                            end 
                         end 
