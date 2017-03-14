@@ -28,26 +28,14 @@ module  cpu_v(wire_clock, wire_reset, bus_RAM_DATA_IN,bus_RAM_DATA_OUT,bus_RAM_A
    
    
    
-   reg [15:0]         END;
-   reg [5:0]         endReg;
-   reg [15:0]        dataIn;
-   reg [15:0]        dataOut;
-   reg [31:0]        SP;
+   reg [15:0]        END;
+   reg [15:0]        SP=16'h7ffc;
    reg               wr;
    reg               clock;
 
 
    reg [15:0]        FR;
    reg               EQual;
-   reg               Zero;
-   reg               Carry;
-   reg               GReater;
-   reg               LEsser;
-   reg               Overflow;
-   reg               Negative;
-   reg               DivbyZero;
-
-
 
 
 
@@ -61,14 +49,6 @@ module  cpu_v(wire_clock, wire_reset, bus_RAM_DATA_IN,bus_RAM_DATA_OUT,bus_RAM_A
       if(definingVariables==1'b1) begin
 	     wire_RW=1'b0;        
 	     PC= 16'h0000;
-	     EQual=1'b1;
-	     Zero=1'b0;
-	     Carry=1'b0;
-	     GReater=1'b0;
-	     LEsser=1'b0;     
-	     Overflow=1'b0;
-	     Negative=1'b0;
-	     DivbyZero=1'b0;
 	     videoflag=1'b0;
 	     resetStage=1'b0;
          FR=16'h0000;       
@@ -118,12 +98,12 @@ module  cpu_v(wire_clock, wire_reset, bus_RAM_DATA_IN,bus_RAM_DATA_OUT,bus_RAM_A
                    end 
                    8'h02: begin 
                       END=bus_RAM_DATA_IN; 
-                      PC=PC+1;     
                    end 
                    8'h03: begin 
                       bus_RAM_ADDRESS=END;
                    end 
-                   8'h04: begin 
+                   8'h04: begin
+                      PC=PC+16'h0001;     
                       Rn[IR[9:7]]=bus_RAM_DATA_IN;
                       processing_instruction=1'b0;
                       resetStage=1'b1;
@@ -138,7 +118,6 @@ module  cpu_v(wire_clock, wire_reset, bus_RAM_DATA_IN,bus_RAM_DATA_OUT,bus_RAM_A
                    end 
                    8'h02: begin 
                       END=bus_RAM_DATA_IN; 
-                      PC=PC+1;
                    end 
                    8'h03: begin 
                       bus_RAM_ADDRESS=END;
@@ -147,7 +126,8 @@ module  cpu_v(wire_clock, wire_reset, bus_RAM_DATA_IN,bus_RAM_DATA_OUT,bus_RAM_A
                       wire_RW=1'b1;
                       bus_RAM_DATA_OUT=Rn[IR[9:7]];
                    end
-                   8'h05: begin 
+                   8'h05: begin
+                      PC=PC+16'h0001;
                       wire_RW=1'b0;
                       processing_instruction=1'b0;
                       resetStage=1'b1;
@@ -192,7 +172,7 @@ module  cpu_v(wire_clock, wire_reset, bus_RAM_DATA_IN,bus_RAM_DATA_OUT,bus_RAM_A
                    end 
                    8'h02: begin 
                       Rn[IR[9:7]]=bus_RAM_DATA_IN; 
-                      PC=PC+1; 
+                      PC=PC+16'h0001; 
                       processing_instruction=1'b0; 
                       resetStage=1'b1; 
                    end 
@@ -239,7 +219,71 @@ module  cpu_v(wire_clock, wire_reset, bus_RAM_DATA_IN,bus_RAM_DATA_OUT,bus_RAM_A
                       resetStage=1'b1; 
                    end 
 			     endcase
+              end 
+              16'b000101??????????: begin
+                 //`instruction_push;================================
+                  casex(stage)
+                    8'h01: begin
+                       bus_RAM_ADDRESS=SP;
+                    end
+                    8'h02: begin
+                       wire_RW=1'b1;
+                       if(IR[6]==1'b0) begin                    
+                          bus_RAM_DATA_OUT=Rn[IR[9:7]];                    
+                       end
+                       else begin
+                          bus_RAM_DATA_OUT=FR;                          
+                       end
+                    end
+                    8'h03: begin       
+                       wire_RW=1'b0;               
+                       processing_instruction=1'b0; 
+                       resetStage=1'b1;
+                       SP=SP-16'h0001;
+                    end
+                  endcase
+              end 
+              16'b000110??????????: begin
+                 //`instruction_pop;=================================
+                  casex(stage)
+                    8'h01: begin
+                       SP=SP+16'h0001;                       
+                    end
+                    8'h02: begin
+                       bus_RAM_ADDRESS=SP;
+                    end
+                    8'h03: begin
+                       if(IR[6]==1'b0) begin                    
+                          Rn[IR[9:7]]=bus_RAM_DATA_IN;
+                       end
+                       else begin
+                          FR=bus_RAM_DATA_IN;
+                       end
+                       processing_instruction=1'b0; 
+                       resetStage=1'b1;
+                    end
+                  endcase
+              end 
+              16'b000110??????????: begin
+                 //`instruction_rts;=================================
+                  casex(stage)
+                    8'h01: begin
+                       SP=SP+16'h0001;                       
+                    end
+                    8'h02: begin
+                       bus_RAM_ADDRESS=SP;
+                    end
+                    8'h03: begin
+                      PC=bus_RAM_DATA_IN;
+                    end
+                    8'h04: begin
+                       PC=PC+16'h0001;                       
+                       processing_instruction=1'b0; 
+                       resetStage=1'b1;
+                    end
+                  endcase
               end
+
               16'b000010??????????: begin
                  //`instructions_jump;===============================
                  casex(stage) 
@@ -341,13 +385,144 @@ module  cpu_v(wire_clock, wire_reset, bus_RAM_DATA_IN,bus_RAM_DATA_OUT,bus_RAM_A
 				      PC=PC+16'h0001;
 				   end
                    8'h04: begin 
-				      bus_RAM_ADDRESS=PC;                    
+                      processing_instruction=1'b0; 
+                      resetStage=1'b1; 
+                   end 
+                 endcase
+              end 
+              16'b000011??????????: begin
+                 //`instructions_jump;===============================
+                 casex(stage)
+                   8'h01: begin
+                      bus_RAM_ADDRESS=SP;                      
+                   end
+                   8'h02: begin 
+                      wire_RW=1'b1;
+                      bus_RAM_DATA_OUT=PC;                      
+                   end
+                   8'h03: begin 
+                      wire_RW=1'b0;
+                   end
+                   8'h04: begin 
+                      bus_RAM_ADDRESS=PC;                      
+                   end
+                   8'h05: begin                     
+                      casex(IR[9:6]) 
+                        4'b0000: begin 
+                           PC=bus_RAM_DATA_IN-16'h0001;
+                           SP=SP-16'h0001;                           
+                        end 
+                        4'b0001: begin 
+                           if(FR[13]==1'b1) begin
+                              //Equal
+                              PC=bus_RAM_DATA_IN-16'h0001;
+                              SP=SP-16'h0001;                           
+                           end 
+                        end 
+                        4'b0010: begin 
+                           if(FR[13]==1'b0) begin
+                              //Not EQual
+                              PC=bus_RAM_DATA_IN-16'h0001;
+                              SP=SP-16'h0001;
+                           end 
+                        end 
+                        4'b0011: begin 
+                           if(FR[12]==1'b1) begin
+                              //Zero
+                              PC=bus_RAM_DATA_IN-16'h0001;
+                              SP=SP-16'h0001;
+                           end 
+                        end 
+                        4'b0100: begin 
+                           if(FR[12]==1'b0) begin
+                              //Not Zero
+                              PC=bus_RAM_DATA_IN-16'h0001;
+                              SP=SP-16'h0001;
+                           end 
+                        end
+                        4'b0101: begin 
+                           if(FR[11]==1'b1) begin
+                              //Carry
+                              PC=bus_RAM_DATA_IN-16'h0001;
+                              SP=SP-16'h0001;
+                           end 
+                        end 
+                        4'b0110: begin 
+                           if(FR[11]==1'b0) begin
+                              //NotCarry
+                              PC=bus_RAM_DATA_IN-16'h0001;
+                              SP=SP-16'h0001;
+                           end 
+                        end 
+                        4'b0111: begin 
+                           if(FR[15]==1'b1) begin
+                              //GReater
+                              PC=bus_RAM_DATA_IN-16'h0001;
+                              SP=SP-16'h0001;
+                           end 
+                        end 
+                        4'b1000: begin 
+                           if(FR[14]==1'b1) begin
+                              //LEsser
+                              PC=bus_RAM_DATA_IN-16'h0001;
+                              SP=SP-16'h0001;
+                           end 
+                        end 
+                        4'b1001: begin 
+                           if((FR[15]|FR[13])==1'b1) begin
+                              //GReater|EQual
+                              PC=bus_RAM_DATA_IN-16'h0001;
+                              SP=SP-16'h0001;
+                           end 
+                        end 
+                        4'b1010: begin 
+                           if((FR[14]|FR[13])==1'b1) begin
+                              //(LEsser|EQual)
+                              PC=bus_RAM_DATA_IN-16'h0001;
+                              SP=SP-16'h0001;
+                           end 
+                        end 
+                        4'b1011: begin 
+                           if(FR[10]==1'b1) begin
+                              //Overflow
+                              PC=bus_RAM_DATA_IN-16'h0001;
+                              SP=SP-16'h0001;
+                           end 
+                        end 
+                        4'b1100: begin 
+                           if(FR[10]==1'b0) begin
+                              //NotOverflow
+                              PC=bus_RAM_DATA_IN-16'h0001;
+                              SP=SP-16'h0001;
+                           end 
+                        end 
+                        4'b1101: begin 
+                           if(FR[6]==1'b1) begin
+                              //Negative
+                              PC=bus_RAM_DATA_IN-16'h0001;
+                              SP=SP-16'h0001;
+                           end 
+                        end 
+                        4'b1110: begin 
+                           if(FR[9]==1'b1) begin
+                              //DivbyZero
+                              PC=bus_RAM_DATA_IN-16'h0001;
+                              SP=SP-16'h0001;
+                           end 
+                        end 
+                      endcase 
+                   end 
+				   8'h06: begin
+				      PC=PC+16'h0001;
+				   end
+                   8'h07: begin 
                       processing_instruction=1'b0; 
                       resetStage=1'b1; 
                    end 
                  endcase
               end
-            endcase
+            endcase 
+            
          end 
       end
    end // always @ (posedge wire_clock)
