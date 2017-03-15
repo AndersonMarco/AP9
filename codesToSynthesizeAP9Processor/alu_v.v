@@ -1,4 +1,4 @@
-module alu_v(wire_clock,enable_alu, m2, m3, m4,opCode,FR_in,FR_out,useCarry,dec);
+module alu_v(wire_clock,enable_alu, m2, m3, m4,opCode,FR_in,FR_out,useCarry,flagToShifthAndRot,dec);
    input  wire         wire_clock;
    input  wire         enable_alu;
    output reg  [15:0]  m2;
@@ -6,8 +6,9 @@ module alu_v(wire_clock,enable_alu, m2, m3, m4,opCode,FR_in,FR_out,useCarry,dec)
    input  wire [15:0]  m4;
    input  wire [5:0]   opCode;
    input  wire [15:0]  FR_in;
-   output reg  [15:0]  FR_out;
+   output reg  [15:0]  FR_out=16'h0000;
    input  wire         useCarry;
+   input  wire [2:0]   flagToShifthAndRot;     
    input  wire         dec;
    
    reg [7:0]          stage=8'h00;
@@ -17,6 +18,7 @@ module alu_v(wire_clock,enable_alu, m2, m3, m4,opCode,FR_in,FR_out,useCarry,dec)
    
    reg [15:0]         FR;
    reg                enable_alu_prev=1'b0;
+
    
 
 
@@ -24,6 +26,7 @@ module alu_v(wire_clock,enable_alu, m2, m3, m4,opCode,FR_in,FR_out,useCarry,dec)
 	  if(enable_alu==1'b1 && enable_alu_prev==1'b0) begin
 		 resetStage=1'b0;
          enable_alu_prev=1'b1;    
+			
 	  end
       else begin 
          if(enable_alu==1'b1) begin
@@ -37,10 +40,10 @@ module alu_v(wire_clock,enable_alu, m2, m3, m4,opCode,FR_in,FR_out,useCarry,dec)
 		 casex(opCode)
            16'b000110: begin
               casex(stage)
-				8'h01: begin
-                   FR_out=FR_in;
-                   resetStage=1'b1;                   
-                end
+				     8'h01: begin
+                        FR_out=FR_in;
+                        resetStage=1'b1;                   
+                     end
               endcase
 		   end	
 		   6'b100000: begin
@@ -171,10 +174,10 @@ module alu_v(wire_clock,enable_alu, m2, m3, m4,opCode,FR_in,FR_out,useCarry,dec)
                 end
               endcase
            end         
-           6'b000101: begin
+           6'b010110: begin
               //`instruction_cmp;=================================
               casex(stage)
-                8'h01: begin
+                8'h01: begin					 
                    if(m3 == m4) begin
                       FR_out[15:13]=3'b100;
                    end
@@ -243,7 +246,60 @@ module alu_v(wire_clock,enable_alu, m2, m3, m4,opCode,FR_in,FR_out,useCarry,dec)
                    resetStage=1'b1;
                 end
               endcase
-           end                      
+           end 
+           6'b010000 : begin
+              //'instructions_shifts_and_rots=====================
+              casez(flagToShifthAndRot)
+                3'b10?: begin
+                   casex(stage)
+                     8'h01: begin
+                        m2=((m3<<m4)&16'hffff)|(m3>>(16'h000f-m4));
+                        resetStage=1'b1;                      
+                     end
+                   endcase
+                end
+                3'b11?: begin
+                   casex(stage)
+                     8'h01: begin
+                        m2=(((m3>>(16'h0010-m4)))|(m3<<m4))&(16'hffff);
+                        resetStage=1'b1;                      
+                     end
+                   endcase
+                end
+                3'b000: begin
+                   casex(stage)
+                     8'h01: begin
+                        m2=m3<<m4;
+                        resetStage=1'b1;                      
+                     end
+                   endcase
+                end
+                3'b001: begin
+                   casex(stage)
+                     8'h01: begin
+                        m2=m3<<m4;
+                        resetStage=1'b1;                      
+                     end
+                   endcase
+                end
+                3'b010: begin
+                   casex(stage)
+                     8'h01: begin
+                        m2=m3>>m4;
+                        resetStage=1'b1;                      
+                     end
+                   endcase
+                end
+                3'b011: begin
+                   casex(stage)
+                     8'h01: begin
+                        m2=m3>>m4;
+                        resetStage=1'b1;                      
+                     end
+                   endcase
+                end
+              endcase
+           end
          endcase       
 	  end
    end
