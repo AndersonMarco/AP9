@@ -180,7 +180,7 @@ module  control_unit_v(wire_clock, wire_reset, bus_RAM_DATA_IN,bus_RAM_DATA_OUT,
               16'b110010??????????: begin
 			     //`instruction_outchar;==============================
                  //data_debug=2'h0041;
-			     casex(stage)
+			         casex(stage)
                    8'h01: begin 
 				      bus_vga_pos=Rn[IR[6:4]]; 
                       bus_vga_char= Rn[IR[9:7]]; 
@@ -270,14 +270,14 @@ module  control_unit_v(wire_clock, wire_reset, bus_RAM_DATA_IN,bus_RAM_DATA_OUT,
                  //`instructions_add_and_addc;=======================
                  casex(stage)
                    8'h01: begin
-                      m3=Rn[IR[9:7]];
-                      m4=Rn[IR[6:4]];
+                      m3=Rn[IR[6:4]];
+                      m4=Rn[IR[3:1]];
                       enable_alu=1'b1;
                       useCarry=IR[0];
                       opcode=IR[15:10];
                    end
                    8'h06: begin
-                      Rn[IR[3:1]]=m2;
+                      Rn[IR[9:7]]=m2;
                       enable_alu=1'b0;
                       processing_instruction=1'b0;
                       resetStage=1'b1;
@@ -288,17 +288,17 @@ module  control_unit_v(wire_clock, wire_reset, bus_RAM_DATA_IN,bus_RAM_DATA_OUT,
                  //`instructions_sub_and_subc;=======================
                  casex(stage)
                    8'h01: begin
-                      m3=Rn[IR[9:7]];
-                      m4=Rn[IR[6:4]];
+                      m3=Rn[IR[6:4]];
+                      m4=Rn[IR[3:1]];
                       enable_alu=1'b1;
                       useCarry=IR[0];
                       opcode=IR[15:10];
                    end
                    8'h06: begin
-                      Rn[IR[3:1]]=m2;
+                      Rn[IR[9:7]]=m2;
                       enable_alu=1'b0;
                       processing_instruction=1'b0;
-                      resetStage=1'b1;
+                      resetStage=1'b1;							
                    end
                   endcase
               end 
@@ -306,13 +306,13 @@ module  control_unit_v(wire_clock, wire_reset, bus_RAM_DATA_IN,bus_RAM_DATA_OUT,
                  //`instruction_mul;=================================
                  casex(stage)
                    8'h01: begin
-                      m3=Rn[IR[9:7]];
-                      m4=Rn[IR[6:4]];
+                      m3=Rn[IR[6:4]];
+                      m4=Rn[IR[3:1]];
                       enable_alu=1'b1;
                       opcode=IR[15:10];
                    end
                    8'h06: begin
-                      Rn[IR[3:1]]=m2;
+                      Rn[IR[9:7]]=m2;
                       enable_alu=1'b0;
                       processing_instruction=1'b0;
                       resetStage=1'b1;
@@ -323,30 +323,30 @@ module  control_unit_v(wire_clock, wire_reset, bus_RAM_DATA_IN,bus_RAM_DATA_OUT,
                  //`instruction_div;================================= 
                  casex(stage)
                    8'h01: begin
-                      m3=Rn[IR[9:7]];
-                      m4=Rn[IR[6:4]];
+                      m3=Rn[IR[6:4]];
+                      m4=Rn[IR[3:1]];
                       enable_alu=1'b1;
                       opcode=IR[15:10];
                    end
                    8'h06: begin
-                      Rn[IR[3:1]]=m2;
+                      Rn[IR[9:7]]=m2;
                       enable_alu=1'b0;
                       processing_instruction=1'b0;
                       resetStage=1'b1;
                    end
                   endcase
               end // case: 16'b100011??????????
-              16'b100101??????????: begin
+              16'b100101??????????: begin				      
                  //`instruction_mod;================================= 
                  casex(stage)
                    8'h01: begin
-                      m3=Rn[IR[9:7]];
-                      m4=Rn[IR[6:4]];
+                      m3=Rn[IR[6:4]];
+                      m4=Rn[IR[3:1]];
                       enable_alu=1'b1;
                       opcode=IR[15:10];
                    end
                    8'h06: begin
-                      Rn[IR[3:1]]=m2;
+                      Rn[IR[9:7]]=m2;
                       enable_alu=1'b0;
                       processing_instruction=1'b0;
                       resetStage=1'b1;
@@ -377,8 +377,7 @@ module  control_unit_v(wire_clock, wire_reset, bus_RAM_DATA_IN,bus_RAM_DATA_OUT,
                       m3=Rn[IR[9:7]];
                       m4=Rn[IR[6:4]];
                       enable_alu=1'b1;
-                      opcode=IR[15:10];
-							 bus_vga_char=m4;
+                      opcode=IR[15:10];							 
                    end
                    8'h06: begin
 							 bus_vga_char=FR_in_at_control;
@@ -388,78 +387,80 @@ module  control_unit_v(wire_clock, wire_reset, bus_RAM_DATA_IN,bus_RAM_DATA_OUT,
                    end
                   endcase
               end 
-              6'b010010??????????: begin
+              16'b010010??????????: begin
                  //`instruction_and;=================================
                  casex(stage)
                    8'h01: begin
-                      m3=Rn[IR[9:7]];
-                      m4=Rn[IR[6:4]];
+                      m3=Rn[IR[6:4]];
+                      m4=Rn[IR[3:1]];
                       enable_alu=1'b1;
                       opcode=IR[15:10];
                    end
                    8'h06: begin
-                      Rn[IR[3:1]]=m2;
+                      Rn[IR[9:7]]=m2;
                       enable_alu=1'b0;
                       processing_instruction=1'b0;
                       resetStage=1'b1;
                    end
                   endcase
               end 
-              6'b010011??????????: begin
+              16'b010011??????????: begin
                  //`instruction_or;==================================
                  casex(stage)
                    8'h01: begin
-                      m3=Rn[IR[9:7]];
-                      m4=Rn[IR[6:4]];
+                      m3=Rn[IR[6:4]];
+                      m4=Rn[IR[3:1]];
                       enable_alu=1'b1;
                       opcode=IR[15:10];
                    end
                    8'h06: begin
-                      Rn[IR[3:1]]=m2;
+                      Rn[IR[9:7]]=m2;
                       enable_alu=1'b0;
                       processing_instruction=1'b0;
                       resetStage=1'b1;
+							 bus_vga_char=m2;
                    end
                   endcase
               end 
-              6'b010100??????????: begin
+              16'b010100??????????: begin
                  //`instruction_xor;=================================
                  casex(stage)
                    8'h01: begin
-                      m3=Rn[IR[9:7]];
-                      m4=Rn[IR[6:4]];
+                      m3=Rn[IR[6:4]];
+                      m4=Rn[IR[3:1]];
                       enable_alu=1'b1;
                       opcode=IR[15:10];
                    end
                    8'h06: begin
-                      Rn[IR[3:1]]=m2;
+                      Rn[IR[9:7]]=m2;
                       enable_alu=1'b0;
                       processing_instruction=1'b0;
                       resetStage=1'b1;
                    end
                   endcase
               end 
-              6'b010101??????????: begin
+              16'b010101??????????: begin
                  //`instruction_not;=================================
                  casex(stage)
                    8'h01: begin
-                      m3=Rn[IR[9:7]];
+                      m3=Rn[IR[6:4]];
                       enable_alu=1'b1;
                       opcode=IR[15:10];
                    end
                    8'h06: begin
-                      Rn[IR[6:4]]=m2;
+                      Rn[IR[9:7]]=m2;
                       enable_alu=1'b0;
                       processing_instruction=1'b0;
                       resetStage=1'b1;
                    end
                   endcase
               end 
-              6'b010000??????????: begin
+              16'b010000??????????: begin
                  //'instructions_shifts_and_rots=====================
                  casex(stage)
                    8'h01: begin
                       m3=Rn[IR[9:7]];
+							 m4[3:0]=IR[3:0];
                       enable_alu=1'b1;
                       opcode=IR[15:10];
                       flagToShifthAndRot=IR[6:4];                      
