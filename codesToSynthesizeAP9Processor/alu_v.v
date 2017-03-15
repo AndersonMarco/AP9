@@ -209,13 +209,13 @@ module alu_v(wire_clock,enable_alu, m2, m3, m4,opCode,FR_in,FR_out,useCarry,flag
               casex(stage)
                 8'h01: begin					 
                    if(m3 == m4) begin
-                      FR_out[15:13]=3'b100;
+                      FR_out[15:13]=3'b001;
                    end
                    if(m3<m4) begin
                       FR_out[15:13]=3'b010;
                    end
                    if(m3>m4) begin
-                      FR_out[15:13]=3'b001;
+                      FR_out[15:13]=3'b100;
                    end
                    resetStage=1'b1;                
                 end

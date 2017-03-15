@@ -64,8 +64,9 @@ module  control_unit_v(wire_clock, wire_reset, bus_RAM_DATA_IN,bus_RAM_DATA_OUT,
                  resetStage=1'b1; 
               end 			  
             endcase
-            
+            data_debug=16'hffff;
          end else begin 
+				data_debug=16'h0000;
             casez(IR)   
               16'b110000??????????: begin
                  //`instruction_load;==================================
@@ -235,9 +236,9 @@ module  control_unit_v(wire_clock, wire_reset, bus_RAM_DATA_IN,bus_RAM_DATA_OUT,
                        end
                        else begin
                           FR_out_at_control=bus_RAM_DATA_IN;
-                       end
-                       opcode=IR[15:10];
-                       enable_alu=1'b1;                                           
+						  opcode=IR[15:10];
+						  enable_alu=1'b1;
+                       end                       
                     end
                     8'h06: begin
                        enable_alu=1'b0;
