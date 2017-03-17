@@ -150,6 +150,7 @@ module alu_v(wire_clock,enable_alu, m2, m3, m4,opCode,FR_in,FR_out,useCarry,flag
                 8'h01: begin
                    if(m4==16'h0000) begin
                       FR_out[9]=1'b1;                   
+                      m2=16'h0000;
                    end
                    else begin
                       m2=m3/m4;    
@@ -172,7 +173,8 @@ module alu_v(wire_clock,enable_alu, m2, m3, m4,opCode,FR_in,FR_out,useCarry,flag
               casex(stage)
                 8'h01: begin
                    if(m4==16'h0000) begin
-                      FR_out[9]=1'b1;                   
+                      FR_out[9]=1'b1;  
+                      m2=16'h0000;
                    end
                    else begin
                       m2=m3%m4;
@@ -199,9 +201,22 @@ module alu_v(wire_clock,enable_alu, m2, m3, m4,opCode,FR_in,FR_out,useCarry,flag
                    end
                    else begin
                       m2=m3-16'h0001;
-                   end
-                   resetStage=1'b1;                
+                   end                   
                 end
+					 8'h02: begin
+						if(dec ==1'b0) begin
+							FR_out[12]=1'b0;
+						end
+						else  begin
+                     if(m2==16'h0000) begin
+                         FR_out[12]=1'b1;
+							end
+							else begin
+                         FR_out[12]=1'b0;
+							end
+                  end						
+						resetStage=1'b1;                
+					 end
               endcase
            end         
            6'b010110: begin

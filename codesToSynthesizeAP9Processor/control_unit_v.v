@@ -33,9 +33,12 @@ module  control_unit_v(wire_clock, wire_reset, bus_RAM_DATA_IN,bus_RAM_DATA_OUT,
    reg [15:0]         Rn [0:7];
    reg [15:0]         END;
    reg [15:0]         SP=16'h7ffc;
-
+   
+		
 	assign led[15:0] = bus_vga_char[15:0];
-
+   
+	
+	
    always @ (posedge wire_clock & startedProcessing) begin
       if(definingVariables==1'b1) begin
 	     wire_RW=1'b0;        
@@ -48,6 +51,7 @@ module  control_unit_v(wire_clock, wire_reset, bus_RAM_DATA_IN,bus_RAM_DATA_OUT,
 	     definingVariables=1'b0;
       end
       else begin
+		
          if(resetStage==1'b1 && stage==8'h01 ) begin
             resetStage=1'b0;         
          end
@@ -67,7 +71,16 @@ module  control_unit_v(wire_clock, wire_reset, bus_RAM_DATA_IN,bus_RAM_DATA_OUT,
             data_debug=16'hffff;
          end else begin 
 				data_debug=16'h0000;
-            casez(IR)   
+            casez(IR) 
+		      default : begin
+				 casex(stage) 
+				   8'h03: begin 
+                      wire_RW=1'b0;
+                      processing_instruction=1'b0;
+                      resetStage=1'b1; 
+                   end 
+                 endcase
+			  end  
               16'b110000??????????: begin
                  //`instruction_load;==================================
                  casex(stage) 
@@ -112,7 +125,7 @@ module  control_unit_v(wire_clock, wire_reset, bus_RAM_DATA_IN,bus_RAM_DATA_OUT,
                    end 
                  endcase
               end
-		      16'b111101??????????: begin
+		        16'b111101??????????: begin
                  //`instruction_storei;================================= 
                  casex(stage) 
                    8'h01: begin 
@@ -179,25 +192,45 @@ module  control_unit_v(wire_clock, wire_reset, bus_RAM_DATA_IN,bus_RAM_DATA_OUT,
                  endcase              
               end
               16'b110010??????????: begin
-			     //`instruction_outchar;==============================
-                 //data_debug=2'h0041;
+			     //`instruction_outchar;==============================                
 			         casex(stage)
                    8'h01: begin 
-				      bus_vga_pos=Rn[IR[6:4]]; 
+				          bus_vga_pos=Rn[IR[6:4]]; 
                       bus_vga_char= Rn[IR[9:7]]; 
+                   end
+						 8'h02: begin 
+				          if(bus_vga_char[11:8]==4'h0) begin
+							    bus_vga_char=Rn[IR[9:7]]+16'h0f00;
+							 end
+							 else if (bus_vga_char[11:8]==4'hf) begin
+							    bus_vga_char=Rn[IR[9:7]]-16'h0f00;
+							 end
                    end 
-                   8'h02: begin 
+                   8'h03: begin 
+						 
                       videoflag=1'b1; 
                    end 
-				   8'h03: begin 
-				      videoflag=1'b0; 
-				   end 
-                   8'h90: begin                    
+				       8'h04: begin 
+				          videoflag=1'b0; 
+				       end 
+                   8'h05: begin                    
                       processing_instruction=1'b0; 
                       resetStage=1'b1; 
                    end 
-			     endcase
+			         endcase
               end 
+				  16'b110101??????????: begin
+				  //`instruction_inchar;===============================
+                 casex(stage)
+                  8'h01: begin 						 
+							Rn[IR[9:7]]=16'h0000+bus_keyboard;
+					   end
+					   8'h02: begin                    
+                      processing_instruction=1'b0; 
+                      resetStage=1'b1; 
+                   end 
+                  endcase				 
+				  end
               16'b000101??????????: begin
                  //`instruction_push;================================
                   casex(stage)
@@ -236,11 +269,12 @@ module  control_unit_v(wire_clock, wire_reset, bus_RAM_DATA_IN,bus_RAM_DATA_OUT,
                        end
                        else begin
                           FR_out_at_control=bus_RAM_DATA_IN;
-						  opcode=IR[15:10];
-						  enable_alu=1'b1;
+								  opcode=IR[15:10];
+								  enable_alu=1'b1;                                           
                        end                       
                     end
                     8'h06: begin
+							  //opcode=6'b000000;
                        enable_alu=1'b0;
                        processing_instruction=1'b0; 
                        resetStage=1'b1;
@@ -418,8 +452,7 @@ module  control_unit_v(wire_clock, wire_reset, bus_RAM_DATA_IN,bus_RAM_DATA_OUT,
                       Rn[IR[9:7]]=m2;
                       enable_alu=1'b0;
                       processing_instruction=1'b0;
-                      resetStage=1'b1;
-							 bus_vga_char=m2;
+                      resetStage=1'b1;							 
                    end
                   endcase
               end 
@@ -437,6 +470,7 @@ module  control_unit_v(wire_clock, wire_reset, bus_RAM_DATA_IN,bus_RAM_DATA_OUT,
                       enable_alu=1'b0;
                       processing_instruction=1'b0;
                       resetStage=1'b1;
+							 bus_vga_char=m2;
                    end
                   endcase
               end 

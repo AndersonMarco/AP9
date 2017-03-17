@@ -30,7 +30,7 @@ module kit_v(clock__50Mhz, wire_clock_50Mhz, wire_clock_25Mhz, wire_clock_1Mhz, 
    wire              wire_clock_25Mhz_priv;
    wire              wire_clock_1MHz_priv;   
    wire              wire_clock_1KHz_priv;
-
+	wire              wire_clock_25Hz_priv;
 
    wire [15:0]       bus_RAM_ADDRESS_priv;  
    wire [15:0]       bus_RAM_DATA_OUT_priv;
@@ -50,7 +50,7 @@ module kit_v(clock__50Mhz, wire_clock_50Mhz, wire_clock_25Mhz, wire_clock_1Mhz, 
    
    //clock init========================================================
    clock_gen clock_gen_dut(clock_50Mhz_priv);
-   clock_divider  clock_manager_dut(clock_50Mhz_priv,wire_clock_50Mhz_priv,wire_clock_25Mhz_priv,wire_clock_1MHz_priv,wire_clock_1KHz_priv);
+   clock_divider  clock_manager_dut(clock_50Mhz_priv,wire_clock_50Mhz_priv,wire_clock_25Mhz_priv,wire_clock_1MHz_priv,wire_clock_1KHz_priv,wire_clock_25Hz_priv);
    
    //end================================================================
 

@@ -30,7 +30,7 @@
     loadn r0,#32766
     loadn r1,#6
     mul r2,r1,r0                ;FR=0000010001000000
-    loadn r0,#45                
+    loadn r0,#95                
     loadn r1,#60
     div r2,r1,r0                ;FR=0000010001000000
     div r2,r1,r6                ;FR=0001011001000000, r2=0
